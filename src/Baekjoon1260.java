@@ -1,11 +1,7 @@
-package dfsbfs;
-
 import java.util.Scanner;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
-
-import javax.management.Query;
 
 class Node {
   int data = 0;
@@ -13,11 +9,11 @@ class Node {
   LinkedList<Node> adjacent = new LinkedList<>();
 }
 
-class Baekjoon1260 {
+class Main {
   Node[] nodes;
 
   public static void main(String[] args) {
-    new Baekjoon1260().solution();
+    new Main().solution();
   }
 
   void solution() {
@@ -46,11 +42,19 @@ class Baekjoon1260 {
 
     adjacentSort();
 
-    // dfsR(V);
+    dfsR(V);
+    System.out.println();
+    initNodes();
     bfs(V);
     System.out.println();
 
     scanner.close();
+  }
+
+  void initNodes() {
+    for (Node node : nodes) {
+      node.mark = false;
+    }
   }
 
   void adjacentSort() {
