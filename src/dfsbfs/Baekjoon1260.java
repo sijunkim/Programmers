@@ -2,7 +2,7 @@ package dfsbfs;
 
 import java.util.Scanner;
 import java.util.LinkedList;
-import java.util.Queue;
+// import java.util.Queue;
 import java.util.Stack;
 
 class Node {
@@ -35,12 +35,25 @@ class Baekjoon1260 {
     for (int i = 0; i < M; i++) {
       int a = scanner.nextInt();
       int b = scanner.nextInt();
-      setEdge(a, b);
+      if (a > b) {
+        setEdge(a, b);
+      } else {
+        setEdge(b, a);
+      }
     }
 
-    dfs(V);
+    adjacentSort();
+
+    dfsR(V);
+    System.out.println();
 
     scanner.close();
+  }
+
+  void adjacentSort() {
+    for (Node node : nodes) {
+      node.adjacent.sort((o1, o2) -> o1.data - o2.data);
+    }
   }
 
   void setEdge(int a, int b) {
@@ -59,18 +72,34 @@ class Baekjoon1260 {
   }
 
   void dfs(int v) {
-    Node startNode = nodes[v - 1];
-    printNode(startNode);
-
     Stack<Node> stack = new Stack<>();
-    stack.push(startNode);
+    stack.push(nodes[v - 1]);
 
     while (!stack.isEmpty()) {
       Node node = stack.pop();
       for (Node n : node.adjacent) {
-        stack.push(n);
+        if (n.mark == false) {
+          stack.push(n);
+        }
+        break;
       }
+      node.mark = true;
       System.out.print(node.data);
+    }
+  }
+
+  void dfsR(int v) {
+    if (nodes[v - 1] == null) {
+      return;
+    } else {
+      Node node = nodes[v - 1];
+      node.mark = true;
+      System.out.print(node.data);
+      for (Node n : node.adjacent) {
+        if (n.mark == false) {
+          dfsR(n.data);
+        }
+      }
     }
   }
 
