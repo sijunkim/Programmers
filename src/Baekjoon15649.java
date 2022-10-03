@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 class Main {
-  static int N, M;
-  static int[] arr;
-  static boolean[] isUsed;
+  int N, M;
+  int[] arr;
+  boolean[] isUsed;
 
   public static void main(String[] args) {
     new Main().solution();
@@ -18,7 +18,6 @@ class Main {
     arr = new int[M + 1];
 
     sc.close();
-    System.out.println("---");
 
     backstracking(0);
   }
@@ -30,10 +29,10 @@ class Main {
     }
 
     for (int i = 1; i <= N; i++) {
-      if (!isUsed[i]) {
+      if (isUsed[i] == false) {
         isUsed[i] = true;
         arr[idx] = i;
-        backstracking(idx + 1); // arr의 인덱스를 +1 시켜준다.
+        backstracking(idx + 1);
         isUsed[i] = false;
       }
     }
